@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block title %}
+    {% if cats['qa'] == cid %}
+    {{ '问答' }}
+    {% else %}
+    {{ '文章片段' }}
+    {% endif %}
+{% endblock %}
+
+{% block page_content %}
+    {{ supper }}
+    <div class="container" style="height: 300px; ">
+    <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" style="background-color: #fff">
+            {% include '_snippets.html' %}
+        </div>
+        <div class="col-md-3"></div>
+    </div>
+    </div>
+{% if pagination %}
+<div class="pagination">
+    {{ macros.pagination_widget(pagination, '.snippet_by_cat', cid=cid) }}
+</div>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+ {{ super() }}
+<script>
+    $(function () {
+        $("[data-toggle='tooltip']").tooltip();
+
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,25 @@
+<ul class="snippets">
+    {% for snippet in snippets %}
+    <li class="snippet">
+        <div class="snippet-content" data-toggle="tooltip" title={{ snippet.summary }}>
+            <div class="snippet-date">
+                <span>保存时间：</span>{{ snippet.timestamp | str_timestamp }}
+                <span>更新时间：</span>{{ snippet.update_timestamp | str_timestamp }}
+            </div>
+            <div class="snippet-summary">
+                {{ snippet.summary | summary_length(2) }}
+            </div>
+            <div class="snippet-footer">
+
+                <a href="{{ url_for('.edit', id=snippet.id) }}" >
+                    <span class="label label-default">编辑查看</span>
+                </a>
+                 <a href="{{ url_for('.delete', id=snippet.id) }}">
+                    <span class="label label-danger">删除</span>
+                </a>
+
+            </div>
+        </div>
+    </li>
+    {% endfor %}
+</ul>

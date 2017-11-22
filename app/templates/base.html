@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+    {% block title %}Snippet{% endblock %}
+    </title>
+    {% block head %}
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+        <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+        <link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
+        <link rel="stylesheet" type="text/css" href="/static/css/snippet.css?11">
+        <script src="/static/js/jquery.min.js"></script>
+        <script src="/static/js/bootstrap.min.js"></script>
+    {% endblock %}
+  </head>
+  <body>
+{% block navbar %}
+<div class=" navbar navbar-inverse" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">Snippet</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('main.index') }}">首页</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+    <div class=".main-content">
+    <div class="container">
+    {% for message in get_flashed_messages() %}
+    <div class="alert alert-warning" style="text-align: center">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        {{ message }}
+    </div>
+    {% endfor %}
+
+    {% block page_content_header %}
+        <div class="page-header" >
+        <div class="row" >
+            <div class="col-md-2"></div>
+            <div class="col-md-4 categories">
+               <a id="article" class="btn btn-default" href="{{ url_for('main.index') }}">文章片段创建</a>
+                <a id="qa" class="btn btn-default" href="{{ url_for('main.qa') }}">问答创建</a>
+
+            </div>
+            <div class="input-group col-md-4" style="margin-top: 10px">
+                <input type="text" class="form-control" placeholder="请输入" >
+                <span class="input-group-btn">
+                   <button class="btn btn-info btn-search">查找</button>
+                </span>
+
+            </div>
+            <div class="col-md-2" ></div>
+        </div>
+        <div class="row" style="margin-top: 0">
+            <div class="col-md-6"></div>
+            <div class="col-md-4">
+                <a class="btn-sm btn-default" href={{ url_for('main.snippet_by_cat', cid=cats['article']) }} style="color:#5bc0de; text-decoration: none;cursor: pointer">文章片段</a>
+                <a class="btn-sm btn-default" href={{ url_for('main.snippet_by_cat', cid=cats['qa']) }} style="color:#5bc0de; text-decoration: none;cursor: pointer">问答</a>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+    </div>
+    {% endblock %}
+    {% block page_content %}
+    {% endblock %}
+    </div>
+    </div>
+{% endblock %}
+
+
+
+  {% block foot %}
+    <footer class="footer navbar-bottom " >
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3"></div>
+        <div align="center" class="col-md-6" style="margin-top: 12px;">
+        <p>
+            Copyright &copy;2017 庄子魚
+        </p>
+        </div>
+
+        <div class="col-md-3" align="right" style="margin-top: 10px">
+            <button id="support_btn" class="btn btn-default" style="background-color: pink">赞助作者</button>
+        </div>
+        </div>
+    </div>
+    </footer>
+    <div id="support_img">
+        <div id="close_btn" style="position: absolute; top: 0; right: 0">
+            <button type="button" class="btn btn-info">关闭</button>
+        </div>
+        <div style="position: absolute; bottom: 0; right: 0">
+            <img src="/static/imgs/weixin.jpg" class="img-rounded" style="width: 243px; height: 276px;">
+            <img src="/static/imgs/zhifubao.jpg" class="img-rounded" style="width: 243px; height: 276px;">
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+    $(function () {
+        $("#support_btn").click(function(){
+            $("#support_img").fadeIn(1000);
+        });
+
+        $("#close_btn").click(function () {
+            $("#support_img").css('display', 'none');
+        });
+        {% if cname=='article' %}
+        $("#article").attr('class', 'btn btn-info');
+        {% elif cname=='qa' %}
+        $("#qa").attr('class', 'btn btn-info');
+        {% endif %}
+    });
+
+    </script>
+{% endblock %}
+</body>
+</html>

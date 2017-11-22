@@ -1,0 +1,108 @@
+html{
+    height: 100%;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 100%;
+    background-color: #f8f8f8;
+    color: #40485b;
+}
+
+.main-content{
+   /* 将 flex-grow 设置为1，该元素会占用全部可使用空间
+      而其他元素该属性值为0，因此不会得到多余的空间*/
+   /* 1 flex-grow, 0 flex-shrink, auto flex-basis */
+   flex: 1 0 auto;
+}
+
+
+.page-header{
+    margin-top:5px;
+}
+
+.categories{
+    line-height:50px;
+}
+
+.form_content{
+    filter:alpha(Opacity=0.5);
+    -moz-opacity:0.5;
+    opacity: 0.5;
+}
+
+#support_img{
+    width: 490px;
+    height: 305px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    display: none;
+    z-index: 10000;
+}
+
+.footer {
+    flex: 0 0 auto;
+    background-color: #777;
+    color:#fff;
+    text-align: center;
+    font-size: 16px;
+    height: 50px;
+}
+/*
+.footer{
+    position:relative;
+    width:100%;
+    background-color: #777;
+    color:#fff;
+    text-align: center;
+    font-size: 16px;
+    height: 50px;
+}
+*/
+/****************************************/
+
+ul.snippets {
+    list-style-type: none;
+    padding: 0;
+    margin: 16px 0 0 0;
+    border-top: 1px solid #e0e0e0;
+}
+div.snippet-tabs ul.snippets {
+    margin: 0;
+    border-top: none;
+}
+ul.snippets li.snippet {
+    padding: 8px;
+    border-bottom: 1px solid #e0e0e0;
+}
+ul.snippets li.snippet:hover {
+    background-color: #f0f0f0;
+}
+div.snippet-date {
+    font-size: 12px;
+    float: right;
+}
+div.snippet-date span{
+    color: #1e88e5;
+}
+
+div.snippet-content {
+    margin-left: 46px;
+    min-height: 46px;
+}
+div.snippet-footer {
+    text-align: right;
+}
+div.snippet-footer  a{
+    text-decoration: none;
+}
+
+div.pagination {
+    width: 100%;
+    text-align: right;
+    padding: 0;
+    margin: 0;
+}

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% import "_macros.html" as macros %}
+
+{% block title %}问答片段创建{% endblock %}
+
+{% block head %}
+{{ super() }}
+<script src="/static/wangEditor/release/wangEditor.min.js"></script>
+{% endblock %}
+
+{% block page_content %}
+
+<div class="row" >
+    <div class="col-md-1"></div>
+    <div class="col-md-10 " style="background-color: #fff">
+        <form  class="form-horizontal" style="margin-top: 20px;" action={{ url_for('main.save', cid=cid) }} method="post">
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="summary">Q:</label>
+                <div class="col-sm-10">
+                <input class="form-control" id="summary" name="summary" type="text" />
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">搜索关键词</label>
+                <div class="col-sm-10">
+                <input class="form-control" id="search_words"  name="forsearch" placeholder="用于搜索,英文;分隔" type="text" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-2 control-label" for="">A:</label>
+                <div id="editor" class="col-sm-10">
+                </div>
+                 <textarea id="content_txt" name="content_txt" hidden></textarea>
+                <textarea id="content_html" name="content_html" hidden></textarea>
+            </div>
+            <div class="form-group">
+                 <div class="col-sm-offset-10 col-sm-2">
+                    <button type="submit" id="submit_btn" class="btn btn-info">提交</button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-1"></div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+window.onload = function () {
+     var E = window.wangEditor;
+    console.log(E);
+    var editor = new E('#editor');
+    // 或者 var editor = new E( document.getElementById('#editor') )
+    editor.customConfig.menus = [
+        'head',  // 标题
+        'bold',  // 粗体
+        'italic',  // 斜体
+        'underline',  // 下划线
+        'strikeThrough',  // 删除线
+        'foreColor',  // 文字颜色
+        'backColor',  // 背景颜色
+        'link',  // 插入链接
+        'list',  // 列表
+        'justify',  // 对齐方式
+        'quote',  // 引用
+        'emoticon',  // 表情
+        'table',  // 表格
+        'code',  // 插入代码
+        'undo',  // 撤销
+        'redo'  // 重复
+    ];
+    var content_html = $('#content_html');
+    var content_txt = $('#content_txt');
+    editor.customConfig.onchange = function (html) {
+        // 监控变化，同步更新到 textarea
+        content_html.val(editor.txt.html());
+        content_txt.val(editor.txt.text());
+    };
+    editor.create();
+    //  缓存 防丢失 先写到本地 存数据库失败 返回到页面 填上
+
+}
+</script>
+{% endblock %}
